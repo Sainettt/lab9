@@ -1,5 +1,5 @@
 const express = require('express');
-const bookController = require('../controllers/bookController');
+const bookController = require('../controllers/bookControllers');
 const router = express.Router();
 
 router.get('/', bookController.getAllBooks);
