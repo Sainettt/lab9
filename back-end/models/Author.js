@@ -27,5 +27,11 @@ class Author {
         }
         return new Author(id, authorData.firstName, authorData.lastName);
     }
+    static async create(authorData) {
+        const db = getDatabase();
+        const authorsCollection = db.collection(COLLECTION_NAME);
+        const result = await authorsCollection.insertOne(authorData);
+        return new Author(result.insertedId, authorData.firstName, authorData.lastName);
+    }
 }
 module.exports = Author;

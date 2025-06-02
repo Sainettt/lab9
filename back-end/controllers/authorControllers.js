@@ -30,3 +30,20 @@ exports.editAuthor = async (req, res) => {
       .json({ error: 'Failed to update author' })
   }
 }
+exports.createAuthor = async (req, res) => {
+  try {
+    const { firstName, lastName } = req.body
+    if (!firstName || !lastName) {
+      return res
+        .status(STATUS_CODES.BAD_REQUEST)
+        .json({ error: 'First name and last name are required' })
+    }
+    const newAuthor = await Author.create({ firstName, lastName })
+    res.status(STATUS_CODES.CREATED).json(newAuthor)
+  } catch (error) {
+    console.error('Error creating author:', error)
+    res
+      .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+      .json({ error: 'Failed to create author' })
+  }
+}
